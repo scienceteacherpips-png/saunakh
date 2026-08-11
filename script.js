@@ -110,7 +110,7 @@ function runSmartCalculation() {
 
     // Спеціальні повідомлення для великих компаній
     if (guests > 8 && appliedDiscountPct > 0) {
-        infoAlert.innerHTML = `ℹ️ <strong>Знижка застосована!</strong> Ваша знижка ${appliedDiscountPct}% знизила вартість базового пакета. Доплата за додаткових гостей нарахована окремо.`;
+        infoAlert.innerHTML = `ℹ️ <strong> Знижка застосована!</strong> Ваша знижка ${appliedDiscountPct}% знизила вартість базового пакета. Доплата за додаткових гостей нарахована окремо.`;
         infoAlert.style.display = 'block';
     }
 
