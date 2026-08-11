@@ -92,11 +92,15 @@
 
             <!-- Персональні промо-знижки -->
             <div class="discounts-block">
-                <p class="discount-title">🎁 Доступні персональні знижки (можна обрати одну):</p>
+                <p class="discount-title">🎁 Доступні акції та знижки (можна обрати лише одну):</p>
                 <div class="radio-group">
                     <label class="radio-label">
                         <input type="radio" name="calc-discount" value="none" checked>
                         Без додаткових знижок
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="calc-discount" value="free-hour">
+                        🎁 Акція 6+1 (7-ма година у подарунок при бронюванні від 6 год)
                     </label>
                     <label class="radio-label">
                         <input type="radio" name="calc-discount" value="birthday">
@@ -104,12 +108,12 @@
                     </label>
                     <label class="radio-label">
                         <input type="radio" name="calc-discount" value="stories">
-                        📱 Відмітка в Instagram Stories (-5% на базовий тариф, якщо зроблена до сеансу)
+                        📱 Відмітка в Instagram Stories (-5% на базовий тариф)
                     </label>
                 </div>
             </div>
 
-            <!-- Повідомлення про гостьові ліміти для знижки -->
+            <!-- Повідомлення про гостьові ліміти та акційні умови -->
             <div id="calc-info-alert" class="calc-info-badge" style="display: none;"></div>
 
             <!-- Результати розрахунку -->
