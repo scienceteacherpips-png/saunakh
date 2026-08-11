@@ -77,41 +77,40 @@ function runSmartCalculation() {
         hourlyTotalPrices.push(basePriceForThisHour + extraGuestsHourlyCost);
     }
 
-    // 2. Логіка акції "6+1"
-    if (totalHours === 6) {
-        // Рівно 6 годин — ціну не знижуємо, а рекомендуємо додати безкоштовну 7-му годину
-        promoOfferText.style.display = 'inline-block';
-    } else if (totalHours >= 7) {
-        // Від 7 годин — акція діє, повністю обнуляємо найдешевшу повну годину (база + всі гості = 0 грн)
-        promoBadgeLabel.style.display = 'inline-block';
-        
-        let minBaseCost = Math.min(...hourlyBasePrices);
-        let cheapestHourIndex = hourlyBasePrices.indexOf(minBaseCost);
-        
-        hourlyBasePrices[cheapestHourIndex] = 0;
-        hourlyTotalPrices[cheapestHourIndex] = 0;
-    }
-
-    // 3. Зчитування типу обраної знижки (Radio button — діє тільки одна)
+    // 2. Зчитування обраної акції
     const selectedDiscount = document.querySelector('input[name="calc-discount"]:checked').value;
     let appliedDiscountPct = 0;
 
-    if (selectedDiscount === 'birthday') {
+    if (selectedDiscount === 'free-hour') {
+        if (totalHours === 6) {
+            promoOfferText.style.display = 'inline-block';
+        } else if (totalHours >= 7) {
+            promoBadgeLabel.style.display = 'inline-block';
+            
+            let minBaseCost = Math.min(...hourlyBasePrices);
+            let cheapestHourIndex = hourlyBasePrices.indexOf(minBaseCost);
+            
+            hourlyBasePrices[cheapestHourIndex] = 0;
+            hourlyTotalPrices[cheapestHourIndex] = 0;
+        } else {
+            infoAlert.innerHTML = "ℹ️ Акція «6+1» діє при бронюванні від 6 годин.";
+            infoAlert.style.display = 'block';
+        }
+    } else if (selectedDiscount === 'birthday') {
         appliedDiscountPct = 10;
     } else if (selectedDiscount === 'stories') {
         appliedDiscountPct = 5;
     }
 
-    // Рахуємо фінальну суму БАЗИ (після акцій), щоб вирахувати відсоток знижки
+    // 3. Розрахунок підсумкової вартості
     let totalBaseSumAfterPromo = hourlyBasePrices.reduce((acc, val) => acc + val, 0);
     const discountAmountValue = totalBaseSumAfterPromo * (appliedDiscountPct / 100);
 
-    // Кінцева ціна: повна вартість годин (разом з людьми, де акційна година = 0 грн) мінус знижка на базу
     const grandTotalResult = hourlyTotalPrices.reduce((acc, val) => acc + val, 0) - discountAmountValue;
 
     // Спеціальні повідомлення для великих компаній
     if (guests > 8 && appliedDiscountPct > 0) {
-        infoAlert.innerHTML = `ℹ️ <strong>Знижка застосована!</strong> Ваша знижка ${appliedDiscountPct}% знизила вартість базового пакета. Доплата за додаткових гостей нарахована окремо (безкоштовна година за акцією 6+1 повністю коштує 0 грн для всіх).`;
+        infoAlert.innerHTML = `ℹ️ <strong>Знижка застосована!</strong> Ваша знижка ${appliedDiscountPct}% знизила вартість базового пакета. Доплата за додаткових гостей нарахована окремо.`;
         infoAlert.style.display = 'block';
     }
 
