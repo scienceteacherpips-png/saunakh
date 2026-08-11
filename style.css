@@ -1,0 +1,449 @@
+/* Екзотична тропічна палітра: чиста бірюза, м'який лайм та благородний аквамарин */
+:root {
+    --bg-light-sand: #f4fcfb;
+    --deep-ocean: #0a5c5a;
+    --bright-turquoise: #14b8a6;
+    --soft-mint: #ccfbf1;
+    --lime-accent: #84cc16;
+    --dark-slate: #0f2d2d;
+    --card-bg: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #e6f4f2;
+    color: var(--dark-slate);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Декоративні елементи фону */
+.bg-decor-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(180deg, rgba(20, 184, 166, 0.2) 0%, transparent 100%);
+    z-index: 1;
+    clip-path: ellipse(80% 50% at 50% 0%);
+}
+
+.bg-decor-palm {
+    position: absolute;
+    bottom: -30px;
+    left: -25px;
+    font-size: 9rem;
+    opacity: 0.08;
+    z-index: 1;
+    user-select: none;
+    transform: rotate(15deg);
+}
+
+/* Контейнер прайсу */
+.price-container {
+    background-color: var(--bg-light-sand);
+    max-width: 650px;
+    width: 100%;
+    border-radius: 28px;
+    padding: 35px;
+    box-shadow: 0 20px 50px rgba(10, 92, 90, 0.06);
+    position: relative;
+    z-index: 10;
+}
+
+.price-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.main-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--deep-ocean);
+    margin: 0 0 12px 0;
+    letter-spacing: 6px;
+}
+
+.instagram-tag {
+    color: var(--deep-ocean);
+    text-decoration: none;
+    font-weight: 700;
+    border: 2px solid var(--deep-ocean);
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    transition: all 0.25s ease-in-out;
+}
+
+.instagram-tag:hover {
+    background-color: var(--deep-ocean);
+    color: white;
+}
+
+.info-blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.info-box {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(10, 92, 90, 0.03);
+}
+
+.info-box p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.box-icon {
+    font-size: 1.8rem;
+}
+
+.highlight-lime {
+    color: #4d7c0f;
+    font-weight: bold;
+    background-color: #f0fdf4;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+/* Інтерфейс калькулятора */
+.calculator-section {
+    background-color: var(--soft-mint);
+    border-radius: 22px;
+    padding: 24px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(20, 184, 166, 0.15);
+}
+
+.calc-title {
+    margin: 0 0 18px 0;
+    color: var(--deep-ocean);
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.calc-control {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.calc-control label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--deep-ocean);
+}
+
+.calc-control select, .calc-control input {
+    padding: 10px 12px;
+    border: 1px solid rgba(10, 92, 90, 0.15);
+    border-radius: 12px;
+    background: var(--card-bg);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--dark-slate);
+    outline: none;
+}
+
+.discounts-block {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(10, 92, 90, 0.15);
+}
+
+.discount-title {
+    margin: 0 0 12px 0;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--deep-ocean);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-label {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.radio-label input {
+    accent-color: var(--bright-turquoise);
+    width: 18px;
+    height: 18px;
+}
+
+.calc-info-badge {
+    margin-top: 15px;
+    background-color: #ecfdf5;
+    color: #065f46;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #a7f3d0;
+    line-height: 1.4;
+}
+
+/* Блок цін результату */
+.calc-result {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 18px;
+    border-top: 1px dashed rgba(10, 92, 90, 0.2);
+}
+
+.calc-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#hours-summary {
+    font-size: 0.9rem;
+    color: var(--dark-slate);
+    font-weight: 600;
+}
+
+.promo-badge {
+    background-color: var(--lime-accent);
+    color: #1f2937;
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    width: fit-content;
+}
+
+.promo-offer-text {
+    background-color: #ffffff;
+    color: #166534;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px dashed #4ade80;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.price-display {
+    text-align: right;
+}
+
+.price-display span {
+    font-size: 0.85rem;
+    display: block;
+    opacity: 0.8;
+}
+
+#total-price {
+    font-size: 1.6rem;
+    color: var(--deep-ocean);
+    font-weight: 900;
+}
+
+/* Секція Таблиці тарифів */
+.price-table {
+    background-color: var(--deep-ocean);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(10, 92, 90, 0.1);
+}
+
+.table-title {
+    color: white;
+    text-align: center;
+    padding: 14px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.grid-table {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr 1fr 1fr;
+    background-color: #d1eae7;
+    gap: 1px;
+}
+
+.grid-header {
+    background-color: #0e7471;
+    color: white;
+    padding: 15px 5px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+.grid-header span {
+    font-weight: normal;
+    opacity: 0.85;
+    font-size: 0.75rem;
+}
+
+.time-icon {
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-name, .price-value {
+    background-color: var(--card-bg);
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.service-name {
+    font-size: 0.9rem;
+    color: var(--dark-slate);
+}
+
+.or-badge {
+    background: #f3f4f6;
+    color: #4b5563;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    width: fit-content;
+    margin: 4px 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.price-value {
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--deep-ocean);
+}
+
+.all-in-cell {
+    background-color: #f0fdf4;
+}
+
+.all-inclusive-badge {
+    background-color: var(--bright-turquoise);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    width: fit-content;
+    margin-top: 6px;
+}
+
+.premium {
+    background-color: #f0fdf4;
+    color: #15803d;
+}
+
+.table-footnote {
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.75;
+    margin: 20px 0;
+}
+
+/* Підвал */
+.price-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.footer-box {
+    padding: 18px;
+    border-radius: 16px;
+}
+
+.footer-box h4 {
+    margin: 0 0 8px 0;
+    font-size: 0.9rem;
+}
+
+.footer-box p {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.alert-box {
+    background-color: #fef2f2;
+    border: 1px solid #fee2e2;
+    color: #991b1b;
+}
+
+.additional-box {
+    background-color: #f0fdf4;
+    border: 1px solid #dcfce7;
+    color: #166534;
+}
+
+.seasonal-text {
+    margin-top: 8px !important;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(22, 101, 52, 0.2);
+    font-style: italic;
+}
+
+.accent-text {
+    font-weight: bold;
+    color: var(--bright-turquoise);
+}
+
+/* Мобільна адаптивність */
+@media (max-width: 580px) {
+    .info-blocks, .price-footer, .calc-grid {
+        grid-template-columns: 1fr;
+    }
+    .full-width { grid-column: span 1; }
+    .grid-table {
+        grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    }
+    .grid-header, .service-name, .price-value {
+        font-size: 0.78rem;
+        padding: 10px 4px;
+    }
+}

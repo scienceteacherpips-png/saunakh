@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розумний Калькулятор Оренди | Sauna KH</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Декоративні елементи на фоні -->
+    <div class="bg-decor-wave"></div>
+    <div class="bg-decor-palm">🌴</div>
+
+    <div class="price-container">
+        <!-- Шапка комплексу -->
+        <header class="price-header">
+            <h1 class="main-title">ПРАЙС</h1>
+            <a href="https://www.instagram.com/sauna.kh/m" target="_blank" class="instagram-tag">@sauna.kh</a>
+        </header>
+
+        <!-- Картки основних правил -->
+        <section class="info-blocks">
+            <div class="info-box company-info">
+                <span class="box-icon">👥</span>
+                <p>Ціна вказана за компанію <strong>до 8 осіб</strong></p>
+            </div>
+            <div class="info-box extra-guest">
+                <span class="box-icon">🧑‍🤝‍🧑</span>
+                <p>Кожен наступний гість: <span class="highlight-lime">+100 грн/год</span></p>
+            </div>
+        </section>
+
+        <!-- РОЗУМНИЙ ІНТЕРАКТИВНИЙ КАЛЬКУЛЯТОР -->
+        <section class="calculator-section">
+            <h3 class="calc-title">✨ Розумний розрахунок вартості відпочинку</h3>
+            <div class="calc-grid">
+                
+                <!-- Вибір тарифної послуги -->
+                <div class="calc-control full-width">
+                    <label for="calc-service">Оберіть пакет послуг:</label>
+                    <select id="calc-service">
+                        <option value="pool">🏊 Басейн</option>
+                        <option value="pool-sauna">🔥 Басейн + Сауна / АБО Зелена зона</option>
+                        <option value="all">👑 Все включено (Басейн + Сауна + Зони + Мангал)</option>
+                    </select>
+                </div>
+
+                <!-- Вибір дня тижня -->
+                <div class="calc-control">
+                    <label for="calc-day">День відпочинку:</label>
+                    <select id="calc-day">
+                        <option value="weekday">Будні дні (ПН–ПТ)</option>
+                        <option value="weekend">Вихідні дні (СБ–НД)</option>
+                    </select>
+                </div>
+
+                <!-- Кількість відпочиваючих -->
+                <div class="calc-control">
+                    <label for="calc-guests">Загальна кількість людей:</label>
+                    <input type="number" id="calc-guests" value="8" min="1">
+                </div>
+
+                <!-- Година початку заїзду -->
+                <div class="calc-control">
+                    <label for="calc-start">Час заїзду:</label>
+                    <select id="calc-start">
+                        <option value="9" selected>09:00</option>
+                        <option value="10">10:00</option><option value="11">11:00</option>
+                        <option value="12">12:00</option><option value="13">13:00</option>
+                        <option value="14">14:00</option><option value="15">15:00</option>
+                        <option value="16">16:00</option><option value="17">17:00</option>
+                        <option value="18">18:00</option><option value="19">19:00</option>
+                        <option value="20">20:00</option><option value="21">21:00</option>
+                    </select>
+                </div>
+
+                <!-- Година виїзду -->
+                <div class="calc-control">
+                    <label for="calc-end">Час виїзду:</label>
+                    <select id="calc-end">
+                        <option value="10">10:00</option><option value="11">11:00</option>
+                        <option value="12" selected>12:00</option><option value="13">13:00</option>
+                        <option value="14">14:00</option><option value="15">15:00</option>
+                        <option value="16">16:00</option><option value="17">17:00</option>
+                        <option value="18">18:00</option><option value="19">19:00</option>
+                        <option value="20">20:00</option><option value="21">21:00</option>
+                        <option value="22">22:00</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Персональні промо-знижки -->
+            <div class="discounts-block">
+                <p class="discount-title">🎁 Доступні персональні знижки (можна обрати одну):</p>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="calc-discount" value="none" checked>
+                        Без додаткових знижок
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="calc-discount" value="birthday">
+                        🎂 У мене День народження (-10% на базовий тариф)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="calc-discount" value="stories">
+                        📱 Відмітка в Instagram Stories (-5% на базовий тариф, якщо зроблена до сеансу)
+                    </label>
+                </div>
+            </div>
+
+            <!-- Повідомлення про гостьові ліміти для знижки -->
+            <div id="calc-info-alert" class="calc-info-badge" style="display: none;"></div>
+
+            <!-- Результати розрахунку -->
+            <div class="calc-result">
+                <div class="calc-details">
+                    <span id="hours-summary">Тривалість оренди: 3 год</span>
+                    <span id="promo-applied" class="promo-badge" style="display: none;">🔥 Безкоштовна година активована!</span>
+                    <span id="promo-offer" class="promo-offer-text" style="display: none;">🎁 Подарунок - 1 год продовження відпочинку без збільшення ціни!</span>
+                </div>
+                <div class="price-display">
+                    <span>Підсумкова ціна:</span>
+                    <strong id="total-price">0 грн</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Статична таблиця цін для звірки -->
+        <main class="price-table">
+            <div class="table-title">ОФІЦІЙНИЙ ТАРИФНИЙ ПЛАН (ГРН/ГОД)</div>
+            <div class="grid-table">
+                <div class="grid-header time-icon">🕒</div>
+                <div class="grid-header">ПН–ПТ<br><span>9:00–15:00</span></div>
+                <div class="grid-header">ПН–ПТ<br><span>15:00–22:00</span></div>
+                <div class="grid-header">СБ–НД<br><span>Весь день</span></div>
+
+                <div class="service-name">🏊 Басейн</div>
+                <div class="price-value">700</div>
+                <div class="price-value">900</div>
+                <div class="price-value">900</div>
+
+                <div class="service-name">
+                    <strong>Басейн + Сауна</strong> <span class="or-badge">або</span> <span>+ Зелена зона</span>
+                </div>
+                <div class="price-value">1000</div>
+                <div class="price-value">1200</div>
+                <div class="price-value">1200</div>
+
+                <div class="service-name all-in-cell">
+                    <strong>Басейн + Сауна + Зелена + Мангал</strong>
+                    <span class="all-inclusive-badge">ПАКЕТ "ВСЕ ВКЛЮЧЕНО"</span>
+                </div>
+                <div class="price-value premium">1200</div>
+                <div class="price-value premium">1400</div>
+                <div class="price-value premium">1400</div>
+            </div>
+        </main>
+
+        <p class="table-footnote">💡 Мінімальний час оренди комплексу — 3 години. Тарифи на стику часу рахуються погодинно.</p>
+
+        <!-- Інформаційні попередження під таблицею -->
+        <footer class="price-footer">
+            <div class="footer-box alert-box">
+                <h4>🛑 ЗВЕРНІТЬ УВАГУ!</h4>
+                <p>Сауна та зелена зона бронюються обов'язково на весь час відпочинку в басейні.</p>
+            </div>
+            <div class="footer-box additional-box">
+                <h4>🔥 ДОДАТКОВІ ПОСЛУГИ / АКЦІЇ</h4>
+                <p>Оренда мангалу без зеленої зони — <span class="accent-text">300 грн/год</span>.</p>
+                <p class="seasonal-text">🍁 <strong>У холодну пору року:</strong> зелена зона надається безкоштовно (залежно від погодних умов на місці).</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
