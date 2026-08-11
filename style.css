@@ -13,10 +13,13 @@
     box-sizing: border-box;
 }
 
-/* Захист від бокового скролу та усунення дублювання прокрутки */
+/* ФІКС ПОДВІЙНОЇ ПОЛОСИ ПРОКРУТКИ:
+   Призначаємо єдиний контекст скролу для html, 
+   а body робимо прозорим для оверфлоу. */
 html {
     overflow-x: hidden;
-    width: 100%;
+    overflow-y: scroll; /* Один єдиний системний скролбар */
+    height: 100%;
 }
 
 body {
@@ -26,11 +29,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100%;
     margin: 0;
     padding: 15px 10px;
     position: relative;
-    overflow-x: hidden;
+    overflow: visible; /* Забороняємо body створювати власний окремий скрол */
     width: 100%;
 }
 
@@ -320,7 +323,7 @@ body {
 .price-table {
     background-color: var(--deep-ocean);
     border-radius: 18px;
-    overflow: hidden; /* Запобігає утворенню зайвих внутрішніх скролів */
+    overflow: hidden;
     box-shadow: 0 10px 30px rgba(10, 92, 90, 0.1);
 }
 
