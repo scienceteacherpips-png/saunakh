@@ -13,10 +13,10 @@
     box-sizing: border-box;
 }
 
-html, body {
+/* Захист від бокового скролу та усунення дублювання прокрутки */
+html {
+    overflow-x: hidden;
     width: 100%;
-    max-width: 100%;
-    overflow-x: hidden; /* Захист від бокового скролу */
 }
 
 body {
@@ -28,8 +28,10 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    padding: 15px;
+    padding: 15px 10px;
     position: relative;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* Декоративні елементи фону */
@@ -167,7 +169,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    min-width: 0; /* Дозволяє флекс/грід контейнеру звужувати елементи */
+    min-width: 0;
 }
 
 .calc-control label {
@@ -176,7 +178,6 @@ body {
     color: var(--deep-ocean);
 }
 
-/* Захист від виходу за поля select та input */
 .calc-control select, .calc-control input {
     padding: 10px;
     border: 1px solid rgba(10, 92, 90, 0.15);
@@ -196,7 +197,7 @@ body {
 
 .calc-control select option {
     font-size: 0.85rem;
-    white-space: normal; /* Дозволяє перенос слів у самому списку на деяких мобільних ОС */
+    white-space: normal;
 }
 
 .discounts-block {
@@ -226,7 +227,7 @@ body {
     cursor: pointer;
     font-weight: 500;
     line-height: 1.35;
-    word-break: break-word; /* Безпечний перенос довгих слів у радіо-кнопках */
+    word-break: break-word;
 }
 
 .radio-label input {
@@ -319,7 +320,7 @@ body {
 .price-table {
     background-color: var(--deep-ocean);
     border-radius: 18px;
-    overflow-x: auto;
+    overflow: hidden; /* Запобігає утворенню зайвих внутрішніх скролів */
     box-shadow: 0 10px 30px rgba(10, 92, 90, 0.1);
 }
 
@@ -337,7 +338,7 @@ body {
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
     background-color: #d1eae7;
     gap: 1px;
-    min-width: 320px;
+    width: 100%;
 }
 
 .grid-header {
@@ -476,11 +477,11 @@ body {
 /* Мобільні адаптивні медіазапити (до 520px) */
 @media (max-width: 520px) {
     body {
-        padding: 10px 8px;
+        padding: 10px 6px;
     }
 
     .price-container {
-        padding: 18px 12px;
+        padding: 16px 10px;
         border-radius: 20px;
     }
 
@@ -497,33 +498,33 @@ body {
     }
 
     .calc-control select, .calc-control input {
-        font-size: 0.85rem; /* Трохи зменшений шрифт для вузьких дисплеїв */
+        font-size: 0.85rem;
     }
 
     .grid-table {
-        grid-template-columns: 1.2fr 1fr 1fr 1fr;
+        grid-template-columns: 1.1fr 1fr 1fr 1fr;
     }
 
     .grid-header {
-        font-size: 0.7rem;
-        padding: 8px 2px;
+        font-size: 0.68rem;
+        padding: 6px 1px;
     }
 
     .grid-header span {
-        font-size: 0.62rem;
+        font-size: 0.6rem;
     }
 
     .service-name {
-        font-size: 0.72rem;
-        padding: 8px 4px;
+        font-size: 0.7rem;
+        padding: 6px 2px;
     }
 
     .price-value {
-        font-size: 0.85rem;
-        padding: 8px 2px;
+        font-size: 0.82rem;
+        padding: 6px 1px;
     }
 
     .all-inclusive-badge {
-        font-size: 0.5rem;
+        font-size: 0.48rem;
     }
 }
