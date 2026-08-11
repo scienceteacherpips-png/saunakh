@@ -1,133 +1,182 @@
-// Конфігурація погодинних базових тарифів (до 8 осіб)
-const priceTariffs = {
-    'pool': { before15: 700, after15: 900, weekend: 900 },
-    'pool-sauna': { before15: 1000, after15: 1200, weekend: 1200 },
-    'all': { before15: 1200, after15: 1400, weekend: 1400 }
-};
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розумний Калькулятор Оренди | Sauna KH</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-// Елементи форми
-const serviceSel = document.getElementById('calc-service');
-const daySel = document.getElementById('calc-day');
-const guestsInp = document.getElementById('calc-guests');
-const startSel = document.getElementById('calc-start');
-const endSel = document.getElementById('calc-end');
-const infoAlert = document.getElementById('calc-info-alert');
+    <!-- Декоративні елементи на фоні -->
+    <div class="bg-decor-wave"></div>
+    <div class="bg-decor-palm">🌴</div>
 
-const hoursSummaryText = document.getElementById('hours-summary');
-const promoBadgeLabel = document.getElementById('promo-applied');
-const promoOfferText = document.getElementById('promo-offer');
-const totalPriceText = document.getElementById('total-price');
+    <div class="price-container">
+        <!-- Шапка комплексу -->
+        <header class="price-header">
+            <h1 class="main-title">ПРАЙС</h1>
+            <a href="https://www.instagram.com/sauna.kh/" target="_blank" class="instagram-tag">@sauna.kh</a>
+        </header>
 
-function runSmartCalculation() {
-    // Очищення блоку сповіщень та акцій
-    infoAlert.style.display = 'none';
-    infoAlert.textContent = '';
-    promoBadgeLabel.style.display = 'none';
-    promoOfferText.style.display = 'none';
+        <!-- Картки основних правил -->
+        <section class="info-blocks">
+            <div class="info-box company-info">
+                <span class="box-icon">👥</span>
+                <p>Ціна вказана за компанію <strong>до 8 осіб</strong></p>
+            </div>
+            <div class="info-box extra-guest">
+                <span class="box-icon">🧑‍🤝‍🧑</span>
+                <p>Кожен наступний гість: <span class="highlight-lime">+100 грн/год</span></p>
+            </div>
+        </section>
 
-    const service = serviceSel.value;
-    const isWeekend = daySel.value === 'weekend';
-    const guests = parseInt(guestsInp.value) || 1;
-    
-    let startHour = parseInt(startSel.value);
-    let endHour = parseInt(endSel.value);
+        <!-- РОЗУМНИЙ ІНТЕРАКТИВНИЙ КАЛЬКУЛЯТОР -->
+        <section class="calculator-section">
+            <h3 class="calc-title">✨ Розумний розрахунок вартості відпочинку</h3>
+            <div class="calc-grid">
+                
+                <!-- Вибір тарифної послуги -->
+                <div class="calc-control full-width">
+                    <label for="calc-service">Оберіть пакет послуг:</label>
+                    <select id="calc-service">
+                        <option value="pool">🏊 Басейн</option>
+                        <option value="pool-sauna">🔥 Басейн + Сауна / Зелена зона</option>
+                        <option value="all">👑 Все включено (Басейн+Сауна+Мангал)</option>
+                    </select>
+                </div>
 
-    // Захист від збігу часу (мінімальний крок 3 години)
-    if (endHour <= startHour) {
-        endHour = startHour + 3;
-        if (endHour > 22) endHour = 22;
-        endSel.value = endHour.toString();
-    }
+                <!-- Вибір дня тижня -->
+                <div class="calc-control">
+                    <label for="calc-day">День відпочинку:</label>
+                    <select id="calc-day">
+                        <option value="weekday">Будні (ПН–ПТ)</option>
+                        <option value="weekend">Вихідні (СБ–НД)</option>
+                    </select>
+                </div>
 
-    const totalHours = endHour - startHour;
-    hoursSummaryText.textContent = `Тривалість оренди: ${totalHours} год`;
+                <!-- Кількість відпочиваючих -->
+                <div class="calc-control">
+                    <label for="calc-guests">Загальна кількість людей:</label>
+                    <input type="number" id="calc-guests" value="8" min="1">
+                </div>
 
-    // Валідація ліміту мінімального замовлення (3 години)
-    if (totalHours < 3) {
-        infoAlert.innerHTML = "⚠️ <strong>Мінімальне замовлення:</strong> тривалість оренди не може бути меншою за 3 години. Будь ласка, оберіть пізніший час виїзду.";
-        infoAlert.style.display = 'block';
-        totalPriceText.textContent = "0 грн";
-        return;
-    }
+                <!-- Година початку заїзду -->
+                <div class="calc-control">
+                    <label for="calc-start">Час заїзду:</label>
+                    <select id="calc-start">
+                        <option value="9" selected>09:00</option>
+                        <option value="10">10:00</option><option value="11">11:00</option>
+                        <option value="12">12:00</option><option value="13">13:00</option>
+                        <option value="14">14:00</option><option value="15">15:00</option>
+                        <option value="16">16:00</option><option value="17">17:00</option>
+                        <option value="18">18:00</option><option value="19">19:00</option>
+                        <option value="20">20:00</option><option value="21">21:00</option>
+                    </select>
+                </div>
 
-    // Кількість додаткових гостей понад ліміт у 8 осіб
-    const extraGuestsCount = guests > 8 ? guests - 8 : 0;
-    const extraGuestsHourlyCost = extraGuestsCount * 100;
+                <!-- Година виїзду -->
+                <div class="calc-control">
+                    <label for="calc-end">Час виїзду:</label>
+                    <select id="calc-end">
+                        <option value="10">10:00</option><option value="11">11:00</option>
+                        <option value="12" selected>12:00</option><option value="13">13:00</option>
+                        <option value="14">14:00</option><option value="15">15:00</option>
+                        <option value="16">16:00</option><option value="17">17:00</option>
+                        <option value="18">18:00</option><option value="19">19:00</option>
+                        <option value="20">20:00</option><option value="21">21:00</option>
+                        <option value="22">22:00</option>
+                    </select>
+                </div>
+            </div>
 
-    let hourlyBasePrices = [];  
-    let hourlyTotalPrices = []; 
+            <!-- Персональні промо-знижки -->
+            <div class="discounts-block">
+                <p class="discount-title">🎁 Доступні акції та знижки (можна обрати лише одну):</p>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="calc-discount" value="none" checked>
+                        <span>Без додаткових знижок</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="calc-discount" value="free-hour">
+                        <span>🎁 Акція 6+1 (7-ма година у подарунок при бронюванні від 6 год)</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="calc-discount" value="birthday">
+                        <span>🎂 У мене День народження (-10% на базовий тариф)</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="calc-discount" value="stories">
+                        <span>📱 Відмітка в Instagram Stories (-5% на базовий тариф)</span>
+                    </label>
+                </div>
+            </div>
 
-    const tariff = priceTariffs[service];
+            <!-- Повідомлення про гостьові ліміти та акційні умови -->
+            <div id="calc-info-alert" class="calc-info-badge" style="display: none;"></div>
 
-    // 1. Погодинне заповнення кошика вартості відпочинку
-    for (let h = startHour; h < endHour; h++) {
-        let basePriceForThisHour = 0;
+            <!-- Результати розрахунку -->
+            <div class="calc-result">
+                <div class="calc-details">
+                    <span id="hours-summary">Тривалість оренди: 3 год</span>
+                    <span id="promo-applied" class="promo-badge" style="display: none;">🔥 Безкоштовна година активована!</span>
+                    <span id="promo-offer" class="promo-offer-text" style="display: none;">🎁 Подарунок - 1 год продовження відпочинку без збільшення ціни!</span>
+                </div>
+                <div class="price-display">
+                    <span>Підсумкова ціна:</span>
+                    <strong id="total-price">0 грн</strong>
+                </div>
+            </div>
+        </section>
 
-        if (isWeekend) {
-            basePriceForThisHour = tariff.weekend;
-        } else {
-            if (h < 15) {
-                basePriceForThisHour = tariff.before15;
-            } else {
-                basePriceForThisHour = tariff.after15;
-            }
-        }
+        <!-- Статична таблиця цін для звірки -->
+        <main class="price-table">
+            <div class="table-title">ОФІЦІЙНИЙ ТАРИФНИЙ ПЛАН (ГРН/ГОД)</div>
+            <div class="grid-table">
+                <div class="grid-header time-icon">🕒</div>
+                <div class="grid-header">ПН–ПТ<br><span>9:00–15:00</span></div>
+                <div class="grid-header">ПН–ПТ<br><span>15:00–22:00</span></div>
+                <div class="grid-header">СБ–НД<br><span>Весь день</span></div>
 
-        hourlyBasePrices.push(basePriceForThisHour);
-        hourlyTotalPrices.push(basePriceForThisHour + extraGuestsHourlyCost);
-    }
+                <div class="service-name">🏊 Басейн</div>
+                <div class="price-value">700</div>
+                <div class="price-value">900</div>
+                <div class="price-value">900</div>
 
-    // 2. Зчитування обраної акції
-    const selectedDiscount = document.querySelector('input[name="calc-discount"]:checked').value;
-    let appliedDiscountPct = 0;
+                <div class="service-name">
+                    <strong>Басейн + Сауна</strong> <span class="or-badge">або</span> <span>+ Зелена зона</span>
+                </div>
+                <div class="price-value">1000</div>
+                <div class="price-value">1200</div>
+                <div class="price-value">1200</div>
 
-    if (selectedDiscount === 'free-hour') {
-        if (totalHours === 6) {
-            promoOfferText.style.display = 'inline-block';
-        } else if (totalHours >= 7) {
-            promoBadgeLabel.style.display = 'inline-block';
-            
-            let minBaseCost = Math.min(...hourlyBasePrices);
-            let cheapestHourIndex = hourlyBasePrices.indexOf(minBaseCost);
-            
-            hourlyBasePrices[cheapestHourIndex] = 0;
-            hourlyTotalPrices[cheapestHourIndex] = 0;
-        } else {
-            infoAlert.innerHTML = "ℹ️ Акція «6+1» діє при бронюванні від 6 годин.";
-            infoAlert.style.display = 'block';
-        }
-    } else if (selectedDiscount === 'birthday') {
-        appliedDiscountPct = 10;
-    } else if (selectedDiscount === 'stories') {
-        appliedDiscountPct = 5;
-    }
+                <div class="service-name all-in-cell">
+                    <strong>Басейн + Сауна + Зелена + Мангал</strong>
+                    <span class="all-inclusive-badge">ПАКЕТ "ВСЕ ВКЛЮЧЕНО"</span>
+                </div>
+                <div class="price-value premium">1200</div>
+                <div class="price-value premium">1400</div>
+                <div class="price-value premium">1400</div>
+            </div>
+        </main>
 
-    // 3. Розрахунок підсумкової вартості
-    let totalBaseSumAfterPromo = hourlyBasePrices.reduce((acc, val) => acc + val, 0);
-    const discountAmountValue = totalBaseSumAfterPromo * (appliedDiscountPct / 100);
+        <p class="table-footnote">💡 Мінімальний час оренди комплексу — 3 години. Тарифи на стику часу рахуються погодинно.</p>
 
-    const grandTotalResult = hourlyTotalPrices.reduce((acc, val) => acc + val, 0) - discountAmountValue;
+        <!-- Інформаційні попередження під таблицею -->
+        <footer class="price-footer">
+            <div class="footer-box alert-box">
+                <h4>🛑 ЗВЕРНІТЬ УВАГУ!</h4>
+                <p>Сауна та зелена зона бронюються обов'язково на весь час відпочинку в басейні.</p>
+            </div>
+            <div class="footer-box additional-box">
+                <h4>🔥 ДОДАТКОВІ ПОСЛУГИ / АКЦІЇ</h4>
+                <p>Оренда мангалу без зеленої зони — <span class="accent-text">300 грн/год</span>.</p>
+                <p class="seasonal-text">🍁 <strong>У холодну пору року:</strong> зелена зона надається безкоштовно (залежно від погодних умов на місці).</p>
+            </div>
+        </footer>
+    </div>
 
-    // Спеціальні повідомлення для великих компаній
-    if (guests > 8 && appliedDiscountPct > 0) {
-        infoAlert.innerHTML = `ℹ️ <strong>Знижка застосована!</strong> Ваша знижка ${appliedDiscountPct}% знизила вартість базового пакета. Доплата за додаткових гостей нарахована окремо.`;
-        infoAlert.style.display = 'block';
-    }
-
-    // Виведення результату
-    totalPriceText.textContent = `${Math.round(grandTotalResult)} грн`;
-}
-
-// Слухачі подій
-const inputElements = [serviceSel, daySel, guestsInp, startSel, endSel];
-inputElements.forEach(el => {
-    el.addEventListener('change', runSmartCalculation);
-    el.addEventListener('input', runSmartCalculation);
-});
-
-document.querySelectorAll('input[name="calc-discount"]').forEach(radio => {
-    radio.addEventListener('change', runSmartCalculation);
-});
-
-// Первинний запуск
-runSmartCalculation();
+    <script src="script.js"></script>
+</body>
+</html>
